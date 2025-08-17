@@ -80,10 +80,12 @@ if "order_id" not in df.columns:
 # ---------------------------
 min_d, max_d = df["date"].min().date(), df["date"].max().date()
 date_range = st.sidebar.date_input("Date range", (min_d, max_d), min_value=min_d, max_value=max_d)
-if isinstance(date_range, tuple):
+if isinstance(date_range, (tuple, list)) and len(date_range) == 2:
     start_d, end_d = pd.to_datetime(date_range[0]), pd.to_datetime(date_range[1])
 else:
     start_d, end_d = pd.to_datetime(date_range), pd.to_datetime(date_range)
+if start_d > end_d:
+    start_d, end_d = end_d, start_d
 
 # Quick range presets (overrides start date)
 range_choice = st.sidebar.radio("Quick range", ["All", "Last 7 days", "Last 30 days", "Last 90 days"], index=0)
