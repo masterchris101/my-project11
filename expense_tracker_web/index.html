@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Expense Tracker — Auto-categorize & Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css" />
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Expense Tracker</h1>
+      <p class="subtitle">Upload transactions, auto-categorize (rules + ML), and visualize your spend.</p>
+    </header>
+
+    <section class="panel">
+      <div class="panel-header">
+        <h2>Upload & Rules</h2>
+      </div>
+      <div class="panel-body grid two">
+        <div>
+          <label class="label">Upload transactions CSV</label>
+          <input type="file" id="fileInput" accept=".csv" />
+          <button id="downloadTemplate" class="btn secondary">Download CSV template</button>
+        </div>
+        <div>
+          <div class="grid two compact">
+            <div>
+              <label class="label">Category</label>
+              <input type="text" id="ruleCategory" placeholder="e.g., Groceries" />
+            </div>
+            <div>
+              <label class="label">Keyword or regex</label>
+              <input type="text" id="rulePattern" placeholder="e.g., trader\s*joe" />
+            </div>
+          </div>
+          <button id="addRule" class="btn">Add Rule</button>
+          <div id="ruleStatus" class="status"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kpis" class="panel hidden">
+      <div class="panel-header">
+        <h2>Overview</h2>
+      </div>
+      <div class="panel-body grid three kpi-grid">
+        <div class="kpi">
+          <div class="kpi-label">Total Expenses</div>
+          <div class="kpi-value" id="kpiExpenses">$0.00</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Total Income</div>
+          <div class="kpi-value" id="kpiIncome">$0.00</div>
+        </div>
+        <div class="kpi">
+          <div class="kpi-label">Net</div>
+          <div class="kpi-value" id="kpiNet">$0.00</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="charts" class="panel hidden">
+      <div class="panel-header">
+        <h2>Spending Reports</h2>
+      </div>
+      <div class="panel-body grid two">
+        <div>
+          <canvas id="categoryChart" height="240"></canvas>
+        </div>
+        <div>
+          <canvas id="monthlyChart" height="240"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <section id="tablePanel" class="panel hidden">
+      <div class="panel-header">
+        <h2>Transactions</h2>
+        <div class="actions">
+          <button id="applyEdits" class="btn">Apply edits & re-train</button>
+          <button id="downloadCsv" class="btn secondary">Download filtered CSV</button>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="filters grid two compact">
+          <div>
+            <label class="label">Start date</label>
+            <input type="date" id="startDate" />
+          </div>
+          <div>
+            <label class="label">End date</label>
+            <input type="date" id="endDate" />
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="txnTable">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Merchant</th>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Account</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
