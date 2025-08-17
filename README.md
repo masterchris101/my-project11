@@ -1,4 +1,6 @@
-≈**Live demo:** https://my-project11-yphc9epyw9wcbp6uil5v8p.streamlit.app/# My Project
+**Live demo:** `https://my-project11-yphc9epyw9wcbp6uil5v8p.streamlit.app/`
+
+## My Project
 
 A lightweight dashboard for small businesses to see **KPIs, trends, and top products** in seconds.
 
@@ -15,3 +17,4 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 streamlit run app.py
+```
