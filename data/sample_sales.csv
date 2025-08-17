@@ -1,0 +1,5 @@
+date,product,channel,quantity,unit_price
+2025-06-01,Basic,Online,2,19
+2025-06-02,Pro,Online,1,79
+2025-06-03,Enterprise,Phone,1,199
+2025-06-04,Plus,In-Store,2,39
